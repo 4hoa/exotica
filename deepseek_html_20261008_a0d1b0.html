@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exotica | GTA 5 RP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0A0F0A;
+            --accent-green: #39FF14;
+            --accent-pink: #FFB6C1;
+            --text-color: #E0E0E0;
+            --dark-green: #1A2E1A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(57, 255, 20, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 182, 193, 0.05) 0%, transparent 20%);
+        }
+
+        /* --- Лианы и шипы (декоративные элементы) --- */
+        .vine-border {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M10,0 Q30,50 10,100 M90,0 Q70,50 90,100" stroke="%2339FF14" stroke-width="0.5" fill="none" opacity="0.1"/><circle cx="10" cy="30" r="2" fill="%23FFB6C1" opacity="0.2"/><circle cx="90" cy="70" r="2" fill="%23FFB6C1" opacity="0.2"/></svg>');
+            background-size: 200px 200px;
+        }
+
+        /* --- Header --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(10, 15, 10, 0.9);
+            border-bottom: 2px solid var(--dark-green);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            color: var(--accent-green);
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--accent-pink);
+            font-size: 20px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent-green);
+            text-shadow: 0 0 8px var(--accent-green);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-green);
+            transition: 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 0 20px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 80px;
+            color: var(--accent-green);
+            text-shadow: 0 0 20px rgba(57, 255, 20, 0.6);
+            letter-spacing: 10px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--accent-pink);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .server-info {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 30px;
+            border-radius: 5px;
+            border: 1px solid var(--dark-green);
+        }
+
+        .server-info div {
+            text-align: center;
+        }
+
+        .server-info span {
+            display: block;
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .server-info strong {
+            font-size: 18px;
+            color: var(--accent-green);
+        }
+
+        .btn {
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--accent-green);
+            color: var(--accent-green);
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+
+        .btn:hover {
+            background: var(--accent-green);
+            color: var(--bg-color);
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.4);
+        }
+
+        /* --- Features (Карточки) --- */
+        .features {
+            padding: 80px 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: rgba(26, 46, 26, 0.3);
+            border: 1px solid var(--dark-green);
+            padding: 30px;
+            border-radius: 5px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .card::before {
+            content: '🌿';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 24px;
+            background: var(--bg-color);
+            padding: 0 10px;
+        }
+
+        .card:hover {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-green);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .card .lotus {
+            color: var(--accent-pink);
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--dark-green);
+            color: #666;
+            font-size: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer span {
+            color: var(--accent-green);
+        }
+
+        /* Адаптив */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            nav a { margin: 0 10px; font-size: 12px; }
+            .hero h1 { font-size: 40px; }
+            .hero p { font-size: 14px; }
+            .server-info { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="vine-border"></div>
+
+    <header>
+        <div class="logo">EXOTICA <span>✿</span></div>
+        <nav>
+            <a href="#">Главная</a>
+            <a href="#">Правила</a>
+            <a href="#">Гайды</a>
+            <a href="#">Донат</a>
+            <a href="#">Форум</a>
+            <a href="#">Войти</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>EXOTICA</h1>
+        <p>Там, где шипы скрывают красоту</p>
+        
+        <div class="server-info">
+            <div>
+                <span>Онлайн</span>
+                <strong>124 / 200</strong>
+            </div>
+            <div>
+                <span>IP сервера</span>
+                <strong>play.exotica-rp.ru</strong>
+            </div>
+            <div>
+                <span>Статус</span>
+                <strong>Онлайн</strong>
+            </div>
+        </div>
+
+        <button class="btn">Начать игру</button>
+    </section>
+
+    <section class="features">
+        <div class="card">
+            <span class="lotus">✿</span>
+            <h3>Уникальный Мир</h3>
+            <p>Погрузитесь в атмосферу тайного общества. Эксклюзивные локации, скрытые от посторонних глаз, и собственная экономика.</p>
+        </div>
+        <div class="card">
+            <span class="lotus">✿</span>
+            <h3>Честная Игра</h3>
+            <p>Никаких читов и стороннего ПО. Мы строго следим за чистотой сервера, чтобы каждый игрок чувствовал себя в безопасности.</p>
+        </div>
+        <div class="card">
+            <span class="lotus">✿</span>
+            <h3>Донат и VIP</h3>
+            <p>Поддержите проект и получите уникальные возможности: эксклюзивный транспорт, одежду и доступ к закрытым мероприятиям.</p>
+        </div>
+        <div class="card">
+            <span class="lotus">✿</span>
+            <h3>Личный Кабинет</h3>
+            <p>Управляйте своим аккаунтом, просматривайте статистику, подавайте заявки на разбан и общайтесь с администрацией.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 <span>Exotica RP</span>. Все права защищены. Не связан с Rockstar Games.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Exotica RP загружен');
+            
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = '0.5s';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
+</body>
+</html>
